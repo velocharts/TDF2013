@@ -183,7 +183,7 @@ var riderS=myListR.options[myListR.selectedIndex].text;
 
 	
 	//Data for starting overall standings
-		d3.csv("http://dl.dropboxusercontent.com/u/17797293/VELOCHARTS/TDF2013/Standings/2013TDFALL.csv", function(error, data) {;
+		d3.csv("2013TDFALL.csv", function(error, data) {;
 		data.forEach(function(d) {
     d.Position = +d.Position1;
     d.SecBack = +d.SecBack1;
