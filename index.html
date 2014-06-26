@@ -86,43 +86,6 @@ background-color:rgb(240,240,240);
 <form id="dropDown2">
 2. Select rider to highlight in red:
 <select id="myListR">
-  <option>FROOME Christopher</option>
-    <option>QUINTANA ROJAS Nairo Alexander</option>
-    <option>RODRIGUEZ OLIVER Joaquin</option>
-  	  <option>CONTADOR Alberto</option>
-	  <option>KREUZIGER Roman</option>
-  <option>MOLLEMA Bauke</option>  
-<option>FUGLSANG Jakob</option>
- <option>VALVERDE Alejandro</option>
-  <option>TALANSKY Andrew</option>
-   <option>KWIATKOWSKI Michal</option>
-      <option>TEN DAM Laurens</option>
-  <option>MARTIN Daniel</option>
- <option>NIEVE ITURRALDE Mikel</option>
- <option>BARDET Romain</option>
-  <option>COSTA Rui Alberto</option>
- 
-  <option>SCHLECK Andy</option>
-  <option>EVANS Cadel</option>
-  <option>ROGERS Michael</option>
- 
-  <option>ROLLAND Pierre</option>
-  <option>GESINK Robert</option>
-  <option>PORTE Richie</option>
-  <option>CUNEGO Damiano</option>
-  <option>HESJEDAL Ryder</option>
-  <option>IMPEY Daryl</option>
-  <option>BAKELANTS Jan</option>
- 
-  <option>GERRANS Simon</option>
-	<option>GERRANS Simon</option>
-    <option>SAGAN Peter</option>
-<option>VOECKLER Thomas</option>
-		  <option>MILLAR David</option>
-
-
-
-  
 </select>
 <br><br>
 </form>
@@ -178,9 +141,13 @@ background-color:rgb(240,240,240);
 var mylist=document.getElementById("myList");
 var teamS=mylist.options[mylist.selectedIndex].text;
 
-var myListR=document.getElementById("myListR");
-var riderS=myListR.options[myListR.selectedIndex].text;
+var riderlist = ["FROOME Christopher","QUINTANA ROJAS Nairo Alexander","RODRIGUEZ OLIVER Joaquin","CONTADOR Alberto","KREUZIGER Roman","MOLLEMA Bauke","FUGLSANG Jakob","VALVERDE Alejandro","NAVARRO Daniel","TALANSKY Andrew","KWIATKOWSKI Michal","NIEVE ITURRALDE Mikel","TEN DAM Laurens","MONFORT Maxime","BARDET Romain","ROGERS Michael","MORENO FERNANDEZ Daniel","BAKELANTS Jan","PORTE Richie","SCHLECK Andy","SERPA José","GADRET John","ANTON Igor","ROLLAND Pierre","VELITS Peter","GESINK Robert","COSTA Rui Alberto","POELS Wouter","JEANNESSON Arnold","KLÖDEN Andreas","CHAVANEL Sylvain","GAUTIER Cyril","MARTIN Daniel","DUPONT Hubert","MORABITO Steve","ZUBELDIA Haimar","RIBLON Christophe","DE CLERCQ Bart","EVANS Cadel","ROCHE Nicolas","DUMOULIN Tom","ASTARLOZA Mikel","HERNANDEZ BLAZQUEZ Jesus","GENIEZ Alexandre","VAN GARDEREN Tejay","VUILLERMOZ Alexis","PLAZA MOLINA Ruben","VORGANOV Eduard","MALACARNE Davide","NORDHAUG Lars-Peter","TROFIMOV Yury","MEDEREL Maxime","DIDIER Laurent","AMADOR Andrey","CUNEGO Damiano","MOINARD Amaël","NIEMIEC Przemyslaw","GALLOPIN Tony","FEDRIGO Pierrick","DANIELSON Thomas","LEVARLET Guillaume","GILBERT Philippe","COPPEL Jérôme","TANKINK Bram","VOECKLER Thomas","VICHOT Arthur","VOIGT Jens","CLARKE Simon","IZAGUIRRE INSAUSTI Jon","HESJEDAL Ryder","DE MARCHI Alessandro","HANSEN Adam","MOLARD Rudy","IMPEY Daryl","GESCHKE Simon","MORI Manuele","KENNAUGH Peter","OROZ Juan José","ROJAS José Joaquin","GERRANS Simon","EL FARES Julien","SAGAN Peter","LAGUTIN Sergey","GAVAZZI Francesco","QUINZIATO Manuel","ALBASINI Michael","SIMON Julien","MATE MARDONES Luis Angel","DELAPLACE Anthony","SIUTSOU Kanstantsin","BOOKWALTER Brent","TOSATTO Matteo","FLECHA GIANNONI Juan Antonio","MOSER Moreno","GASPAROTTO Enrico","DE GENDT Thomas","CASTROVIEJO NICOLAS Jonathan","BURGHARDT Marcus","ARASHIRO Yukiya","KOREN Kristijan","HOOGERLAND Johnny","TAARAMÄE Rein","IRIZAR Markel","FEILLU Brice","BOOM Lars","MARTIN Tony","BENNATI Daniele","BAK Lars Ytting","LOSADA ALGUACIL Alberto","BRUTT Pavel","MARANGONI Alan","LEMOINE Cyril","MILLAR David","BODNAR Maciej","GARCIA ECHEGUIBEL Egoitz","MARINO Jean Marc","SABATINI Fabio","ERVITI Imanol","SMUKULIS Gatis","NAVARDAUSKAS Ramunas","DEGENKOLB John","SICARD Romain","VEILLEUX David","MINARD Sébastien","KADRI Blel","ROY Jérémy","LOPEZ GARCIA David","FAVILLI Elia","GREIPEL André","MEYER Cameron","VANMARCKE Sep","WYNANTS Maarten","FISCHER Murilo Antoniobil","REZA Kévin","STANNARD Ian","PAULINHO Sergio Miguel Moreira","CIMOLAI Davide","DE KORT Koen","PEREZ MORENO Ruben","THOMAS Geraint","KUCHYNSKI Aliaksandr","TRENTIN Matteo","DUMOULIN Samuel","VAN POPPEL Boy","CURVERS Roy","FRÖHLINGER Johannes","KRISTOFF Alexander","CAVENDISH Mark","TERPSTRA Niki","LEEZER Thomas","HIVERT Jonathan","GOSS Matthew Harley","STEEGMANS Gert","LANCASTER Brett Daniel","VANDBORG Brian","COUSIN Jérome","FERRARI Roberto","GENE Yohann","PINEAU Jérôme","ROELANDTS Jurgen","O'GRADY Stuart","HENDERSON Gregory","WILLEMS Frederik","TIMMER Albert","LOBATO DEL VALLE Juan José","KITTEL Marcel","MURAVYEV Dmitriy","BAZAYEV Assan","TUFT Svein","BOECKMANS Kris","WESTRA Lieuwe","LE MEVEL Christophe","SIEBERG Marcel","BAUER Jack","LUTSENKO Alexey","BONNET William","VEELERS Tom","IZAGUIRRE INSAUSTI Gorka","PÉRAUD Jean-Christophe","VAN POPPEL Danny","PINOT Thibaut","BOASSON HAGEN Edvald","KIRYIENKA Vasili","SCHÄR Michael","GUTIERREZ José Ivan","DENNIS Rohan","NOVAL GONZALEZ Benjamin","BONO Matteo","BRAJKOVIC Janez","VANDE VELDE Christian","MALORI Adriano","VAN DEN BROECK Jurgen","KESSIAKOFF Fredrik","BOUET Maxime","BOUHANNI Nacer","KING Edward","KASHECHKIN Andrey","BAGOT Yoann"]
 
+
+//var myListR=document.getElementById("myListR");
+var dropdown = document.getElementById("myListR");
+for (var i = 0; i < riderlist.length; ++i) { dropdown[dropdown.length] = new Option(riderlist[i], riderlist[i]);};
+var riderS=myListR.options[myListR.selectedIndex].text;
 	
 	//Data for starting overall standings
 		d3.csv("Data/2013TDFALL.csv", function(error, data) {;
