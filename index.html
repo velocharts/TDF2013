@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		
+
 		<title>Tour de France Stage by Stage</title>
 
 		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
@@ -21,15 +21,15 @@ background-color:rgb(240,240,240);
 				fill: none;
 				stroke: grey;
 				shape-rendering: crispEdges;
-				
+
 			}
-			
+
 			.axis text {
 				font-family: sans-serif;
 				font-size: 13px;
 				fill: rgb(80,80,80);
 			}
-				
+
 		a, img {
     border:none;
 }
@@ -46,14 +46,14 @@ background-color:rgb(240,240,240);
    }
 
 </style>
-		
+
 	</head>
 	   <body>
 	<div class="aParent">
 	<img src="images/TDFBanner.png" />
 	<div id="left margin" style="width:60px"><br></div>
 	<div id="dropdowns" style="width:300px">
-		
+
 <form id="dropDown">
 1. Select team to highlight in blue:
 <select id="myList">
@@ -85,8 +85,7 @@ background-color:rgb(240,240,240);
 <br><br>
 <form id="dropDown2">
 2. Select rider to highlight in red:
-<select id="myListR">
-</select>
+<select id="myListR"></select>
 <br><br>
 </form>
 <form id="dropDown3">
@@ -125,13 +124,13 @@ background-color:rgb(240,240,240);
 </p>
 </div>
 </div>
-	
+
 	 <script type="text/javascript">
-	
+
 	var circle
 	var data
 
-	 
+
 	//Width and height of SVG
 		 	var data
 			var w = 840;
@@ -148,7 +147,11 @@ var riderlist = ["FROOME Christopher","QUINTANA ROJAS Nairo Alexander","RODRIGUE
 var dropdown = document.getElementById("myListR");
 for (var i = 0; i < riderlist.length; ++i) { dropdown[dropdown.length] = new Option(riderlist[i], riderlist[i]);};
 var riderS=myListR.options[myListR.selectedIndex].text;
-	
+
+
+
+
+
 	//Data for starting overall standings
 		d3.csv("Data/2013TDFALL.csv", function(error, data) {;
 		data.forEach(function(d) {
@@ -195,11 +198,14 @@ var riderS=myListR.options[myListR.selectedIndex].text;
        d.Position21 = +d.Position21;
    d.SecBack21 = +d.SecBack21;
 	});
-		
+	
+	var formatTime = d3.time.format("%H:%M"),
+    formatMinutes = function(d) { return formatTime(new Date(2012, 0, 1, 0, 0,d)); }
+
 	//set scales for starting overall standings
 		var xScale = d3.scale.linear()
                     .domain([0, d3.max(data, function(d) { return d.Position21; })])
-				
+
                      .range([padding, w - padding]);
 		var yScale = d3.scale.linear()
                      .domain([0, d3.max(data, function(d) { return d.SecBack21; })])
@@ -215,7 +221,8 @@ var riderS=myListR.options[myListR.selectedIndex].text;
 			var yAxis = d3.svg.axis()
 							  .scale(yScale)
 							  .orient("left")
-							  .ticks(10);
+							  .tickValues([0, 600,1200,1800,2400,3000,3600,3600+1800,2*3600,3*3600,4*3600])
+							  .tickFormat(formatMinutes);
 
 	//Create SVG element
 		var svg = d3.select("body")
@@ -233,14 +240,14 @@ var riderS=myListR.options[myListR.selectedIndex].text;
 			   .attr("cy", function(d) {
 			   		return 100;})
 	//set colour
-	
+
 			  .attr("fill", function(d) {
 				 if (d.Name == riderS) { return "rgb(227,27,35)" }
 			 else if (d.Team == teamS) { return "rgb(0,121,193)" }
 			  else {  return "rgb(217,217,217)" }
 			  })
-			
-			 
+
+
 			.attr("stroke", "black")
 			.attr("stroke-width", 0.5)	
 			 .attr("r", function(d) {
@@ -253,19 +260,19 @@ var tips = svg.selectAll("circle")
 			.append("title")
 			.text(function(d) {
 				return d.Name + " | Position: " + d.Position1 + " | " + d.Team + " | Overall Time:" + d.TimeBack1;});
-			
+
 //Create X axis
 			svg.append("g")
 				.attr("class", "x axis")
 				.attr("transform", "translate(0," + (padding -15) + ")")
 				.call(xAxis);
-			
+
 			//Create Y axis
 			svg.append("g")
 				.attr("class", "y axis")
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);		
-				
+
 	svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
@@ -284,9 +291,9 @@ var tips = svg.selectAll("circle")
 	.attr("x", - 80)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Seconds Back");
-				
-			 
+    .text("Time Back - MM:SS");
+
+
 			var circle = svg.selectAll("circle")
 			    .data(data)
 			    .transition()
@@ -295,7 +302,7 @@ var tips = svg.selectAll("circle")
 			   		return xScale(d.Position1);})
 			   .attr("cy", function(d) {
 			   		return yScale(d.SecBack1);})
-					
+
 
 		/*		//Create labels
 			svg.selectAll("text")
@@ -313,7 +320,7 @@ var tips = svg.selectAll("circle")
 			   .attr("font-size", "11px")
 			   .attr("fill", "black");	
 			*/
-			
+
 				d3.select("#myList")
 				.on("change", function() {
 			var mylist=document.getElementById("myList");
@@ -366,12 +373,12 @@ var teamS=mylist.options[mylist.selectedIndex].text
 			  else {  return 5 }
 			  })
 				});
-				
-				
+
+
 				d3.select("#stageList")
 				.on("change", function() {
 			var stageList=document.getElementById("stageList");
-			
+
 var stageN=stageList.options[stageList.selectedIndex].text
 
 
@@ -383,7 +390,7 @@ switch (stageN)
     d.PositionZ = d.Position1;
 	d.SecBackZ = d.SecBack1;
 d.TimeBackZ = d.TimeBack1;
-	
+
 	});
      break;
 case "Stage 2" : 
@@ -403,7 +410,7 @@ d.TimeBackZ = d.TimeBack2;
 	d.SecBackZ = d.SecBack3;
 d.TimeBackZ = d.TimeBack3;
 	});
-	
+
 	break;
 	case "Stage 4" : 
 	 document.getElementById("imgClickAndChange").src = "images/PROFIL4.png";
@@ -483,9 +490,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position11;
 	d.SecBackZ = d.SecBack11;
 	d.TimeBackZ = d.TimeBack11;
-		
+
 	});
-	
+
   break;
   
    case "Stage 12" : 
@@ -496,9 +503,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position12;
 	d.SecBackZ = d.SecBack12;
 	d.TimeBackZ = d.TimeBack12;
-		
+
 	});
-	
+
   break;
  
    case "Stage 13" : 
@@ -509,9 +516,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position13;
 	d.SecBackZ = d.SecBack13;
 	d.TimeBackZ = d.TimeBack13;
-		
+
 	});
-	
+
   break;
    case "Stage 14" : 
    document.getElementById("imgClickAndChange").src = "images/PROFIL14.png";
@@ -521,9 +528,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position14;
 	d.SecBackZ = d.SecBack14;
 	d.TimeBackZ = d.TimeBack14;
-		
+
 	});
-	
+
   break;
      case "Stage 15" : 
    document.getElementById("imgClickAndChange").src = "images/PROFIL15.png";
@@ -533,9 +540,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position15;
 	d.SecBackZ = d.SecBack15;
 	d.TimeBackZ = d.TimeBack15;
-		
+
 	});
-	
+
   break;
    case "Stage 16" : 
    document.getElementById("imgClickAndChange").src = "images/PROFIL16.png";
@@ -545,9 +552,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position16;
 	d.SecBackZ = d.SecBack16;
 	d.TimeBackZ = d.TimeBack16;
-		
+
 	});
-	
+
   break;
   
    case "Stage 17" : 
@@ -558,9 +565,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position17;
 	d.SecBackZ = d.SecBack17;
 	d.TimeBackZ = d.TimeBack17;
-		
+
 	});
-	
+
   break;
   
     case "Stage 18" : 
@@ -571,9 +578,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position18;
 	d.SecBackZ = d.SecBack18;
 	d.TimeBackZ = d.TimeBack18;
-		
+
 	});
-	
+
   break;
   
   case "Stage 19" : 
@@ -584,9 +591,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position19;
 	d.SecBackZ = d.SecBack19;
 	d.TimeBackZ = d.TimeBack19;
-		
+
 	});
-	
+
   break;
   
   case "Stage 20" : 
@@ -597,9 +604,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position20;
 	d.SecBackZ = d.SecBack20;
 	d.TimeBackZ = d.TimeBack20;
-		
+
 	});
-	
+
   break;
   
   case "Stage 21" : 
@@ -610,9 +617,9 @@ d.TimeBackZ = d.TimeBack4;
     d.PositionZ = d.Position21;
 	d.SecBackZ = d.SecBack21;
 	d.TimeBackZ = d.TimeBack21;
-		
+
 	});
-	
+
   break;
   
 }
@@ -626,7 +633,7 @@ d.TimeBackZ = d.TimeBack4;
 			   		return xScale(d.PositionZ);})
 			   .attr("cy", function(d) {
 			   		return yScale(d.SecBackZ);})
-					
+
 					tips.text(function(d) {
 				return d.Name + " | Position: " + d.PositionZ + " | " + d.Team + " | Overall Time:" + d.TimeBackZ;});
 					/*
@@ -642,11 +649,11 @@ d.TimeBackZ = d.TimeBack4;
 			  else {  return 5 }
 			  })         */
 				}); 		
-			
+
 
 });
 
-		
+
 			    	</script>
 
 			</body>
